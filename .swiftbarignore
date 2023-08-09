@@ -4,6 +4,7 @@
 .gitignore
 
 .env*
+.editorconfig
 
 requirements.txt
 README.md
