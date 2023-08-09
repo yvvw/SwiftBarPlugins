@@ -1,0 +1,1 @@
+https://github.com/swiftbar/SwiftBar custom build 2.0.0

@@ -1,0 +1,9 @@
+.idea
+
+.git
+.gitignore
+
+.env*
+
+requirements.txt
+README.md
