@@ -16,6 +16,8 @@ import dotenv
 import requests
 from okx.MarketData import MarketAPI
 
+import util
+
 dotenv.load_dotenv()
 
 OKX_ACCESS_KEY = os.getenv('OKX_ACCESS_KEY')
@@ -25,6 +27,7 @@ DEBUG = os.getenv('DEBUG') == 'true'
 
 COINS = os.getenv('OKX_SPOT_MARKET_COINS').split(',')
 URL = 'https://www.okx.com/cn/markets/explore'
+ETHS_ORDER_HISTORY_API = "https://www.etch.market/api/markets/history/orders?category=token&events=sold&collection=erc-20%20eths&page.size=20&page.index=1"
 
 
 def main():
@@ -64,8 +67,7 @@ def main():
 
 
 def get_eths_price_usd():
-    response = requests.get(
-        "https://www.etch.market/api/markets/history/orders?category=token&events=sold&collection=erc-20%20eths&page.size=20&page.index=1")
+    response = requests.get(ETHS_ORDER_HISTORY_API)
     data = response.json()
     event = data['data']['events'][0]
     price_usd = float(event['priceUsd'])
@@ -76,6 +78,6 @@ def get_eths_price_usd():
 
 if __name__ == '__main__':
     try:
-        main()
+        util.retry(3, main)
     except Exception as err:
         print(path.basename(os.getenv('SWIFTBAR_PLUGIN_PATH', __file__)) + ': ' + str(err))

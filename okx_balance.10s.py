@@ -14,6 +14,8 @@ from os import path
 import dotenv
 from okx.Account import AccountAPI
 
+import util
+
 dotenv.load_dotenv()
 
 OKX_ACCESS_KEY = os.getenv('OKX_ACCESS_KEY')
@@ -57,6 +59,6 @@ def main():
 
 if __name__ == '__main__':
     try:
-        main()
+        util.retry(3, main)
     except Exception as err:
         print(path.basename(os.getenv('SWIFTBAR_PLUGIN_PATH', __file__)) + ': ' + str(err))
