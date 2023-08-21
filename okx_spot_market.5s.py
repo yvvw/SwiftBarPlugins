@@ -70,7 +70,7 @@ def get_eths_price_usd():
     response = requests.get(ETHS_ORDER_HISTORY_API)
     data = response.json()
     event = data['data']['events'][0]
-    price_usd = float(event['priceUsd'])
+    price_usd = float(event['unitPriceUsd'])
     elapsed = datetime.timestamp(datetime.now()) - datetime.timestamp(datetime.fromtimestamp(event['eventTime']))
     elapsed = "{:.0f}m{:.0f}s".format(elapsed / 60, elapsed % 60) if elapsed >= 60 else "{:.0f}s".format(elapsed)
     return '{:.2f}({})'.format(price_usd, elapsed)
